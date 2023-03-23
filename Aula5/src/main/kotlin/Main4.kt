@@ -7,7 +7,7 @@ fun moveHero(cv: Canvas, x: Int, y: Int, shift: Int): Int {
     return newX
 }
 
-fun main(){
+fun main() {
     onStart {
         val cv = Canvas(800,600)
         val y = cv.height/2-HERO_SIZE/2
