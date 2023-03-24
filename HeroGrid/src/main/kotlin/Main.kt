@@ -1,9 +1,15 @@
 import pt.isel.canvas.*
 
-const val GRID_SIZE = 64
-const val GRID_ROWS = 10
-const val GRID_COLS = 16
+/**
+ * Dimensions of the grid
+ */
+const val GRID_SIZE = 64    // Side of the grid square
+const val GRID_ROWS = 10    // Number of rows in the grid
+const val GRID_COLS = 16    // Number of columns in the grid
 
+/**
+ * Main function of the game.
+ */
 fun main() {
     onStart {
         val arena = Canvas(GRID_SIZE*GRID_COLS, GRID_SIZE*GRID_ROWS, BLACK)
