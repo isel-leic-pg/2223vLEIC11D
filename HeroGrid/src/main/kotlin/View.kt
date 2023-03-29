@@ -4,13 +4,13 @@ import pt.isel.canvas.WHITE
 /**
  * Draws all game arena.
  * Before drawing the arena, it erases the canvas.
- * @param cv the canvas to draw on
+ * @receiver the canvas to draw on
  * @param h the hero to be drawn
  */
-fun drawGame(cv: Canvas, h: Hero) {
-    cv.erase()
-    drawGrid(cv)
-    drawHero(cv, h)
+fun Canvas.drawGame(h: Hero) {
+    erase()
+    drawGrid()
+    drawHero(h)
 }
 
 /**
@@ -20,22 +20,23 @@ const val SPRITE_SIZE = 64
 
 /**
  * Draws the hero in the canvas
- * @param cv the canvas to draw on
+ * @receiver the canvas to draw on
  * @param h the hero to be drawn
  */
-fun drawHero(cv: Canvas, h: Hero) {
-    val x = h.col * GRID_SIZE
-    val y = h.row * GRID_SIZE
-    cv.drawImage("Hero|0,0,$SPRITE_SIZE,$SPRITE_SIZE",x,y,GRID_SIZE,GRID_SIZE)
+fun Canvas.drawHero(h: Hero) {
+    val x = h.pos.col * GRID_SIZE
+    val y = h.pos.row * GRID_SIZE
+    val ySprite = h.dir.ordinal * SPRITE_SIZE
+    drawImage("Hero|0,$ySprite,$SPRITE_SIZE,$SPRITE_SIZE",x,y,GRID_SIZE,GRID_SIZE)
 }
 
 /**
  * Draws the grid in the canvas
- * @param cv the canvas to draw on
+ * @receiver the canvas to draw on
  */
-fun drawGrid(cv: Canvas) {
-    for(x in 0..cv.width step GRID_SIZE)
-        cv.drawLine(x,0,x,cv.height, WHITE, 1)
-    for(y in 0..cv.height step GRID_SIZE)
-        cv.drawLine(0,y,cv.width,y, WHITE, 1)
+fun Canvas.drawGrid() {
+    for(x in 0..width step GRID_SIZE)
+        drawLine(x,0,x,height, WHITE, 1)
+    for(y in 0..height step GRID_SIZE)
+        drawLine(0,y,width,y, WHITE, 1)
 }

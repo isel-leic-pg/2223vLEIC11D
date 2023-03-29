@@ -1,31 +1,44 @@
-import pt.isel.canvas.DOWN_CODE
-import pt.isel.canvas.LEFT_CODE
-import pt.isel.canvas.RIGHT_CODE
-import pt.isel.canvas.UP_CODE
-
 /**
- * Represents the hero position in the grid
- * @property row the row in the grid (0..GRID_ROWS-1)
- * @property col the column in the grid (0..GRID_COLS-1)
+ * Represents the hero in arena
+ * @property pos the hero position in the grid
+ * @property dir the direction the hero is facing
  */
-data class Hero(val row: Int, val col: Int)
+data class Hero(val pos: Position, val dir: Direction)
+/*
+fun Hero.toString(): String = "Hero(pos=pos, dir=dir)"
+fun Hero.copy(pos: Position =this.pos, dir: Direction =this.dir) = Hero(pos,dir)
+*/
 
 /**
- * Moves the hero according to the key pressed
- * @param keyCode the key code that was pressed
- * @param h the hero to be moved
+ * Move the hero after turning to the given direction.
+ * @receiver the hero to be moved
+ * @param to the direction to move
  * @return the new hero after the move
  */
-fun moveHero(keyCode: Int, h: Hero): Hero {
-    when (keyCode) {
-        RIGHT_CODE ->
-            if (h.col < GRID_COLS - 1) return Hero(h.row, h.col+1)
-        LEFT_CODE ->
-            if (h.col > 0) return Hero(h.row, h.col-1)
-        DOWN_CODE ->
-            if (h.row < GRID_ROWS - 1) return Hero(h.row+1, h.col)
-        UP_CODE ->
-            if (h.row > 0) return Hero(h.row-1, h.col)
-    }
-    return h
+fun Hero.move(to: Direction): Hero = face(to).moveFaced() //moveFaced(face(this,to))
+
+/**
+ * Move the hero in the direction it is facing.
+ * @receiver the hero to be moved
+ * @return the new hero after the move
+ */
+fun Hero.moveFaced(): Hero {
+    val pos = pos + dir
+    return if (pos.isValid()) copy(pos= pos) else this
 }
+
+/**
+ * Turn the hero to the given direction.
+ * @receiver the hero to be turned
+ * @param to the direction to turn
+ * @return the new hero after the turn
+ */
+fun Hero.face(to: Direction) = copy(dir= to)
+
+
+
+
+
+
+
+
