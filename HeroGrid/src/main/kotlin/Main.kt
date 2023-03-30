@@ -3,9 +3,9 @@ import pt.isel.canvas.*
 /**
  * Dimensions of the grid
  */
-const val GRID_SIZE = 64    // Side of the grid square
-const val GRID_ROWS = 10    // Number of rows in the grid
-const val GRID_COLS = 16    // Number of columns in the grid
+const val GRID_SIZE = 128    // Side of the grid square
+const val GRID_ROWS = 5    // Number of rows in the grid
+const val GRID_COLS = 8    // Number of columns in the grid
 
 /**
  * Main function of the game.
@@ -13,14 +13,19 @@ const val GRID_COLS = 16    // Number of columns in the grid
 fun main() {
     onStart {
         val arena = Canvas(GRID_SIZE*GRID_COLS, GRID_SIZE*GRID_ROWS, BLACK)
-        var hero = Hero( Position(GRID_ROWS/2, GRID_COLS/2), Direction.DOWN)
-        arena.drawGame(hero)
+        var hero = Hero(
+            Position(GRID_ROWS/2, GRID_COLS/2),
+            Direction.DOWN,
+            Walk.STAND
+        )
         arena.onKeyPressed { key ->
             val dir = keyToDir(key.code)
-            if (dir!=null) {
+            if (dir!=null)
                 hero = hero.move(dir)
-                arena.drawGame(hero)
-            }
+        }
+        arena.onTimeProgress(250) {
+            hero = hero.step()
+            arena.drawGame(hero)
         }
     }
     onFinish {  }

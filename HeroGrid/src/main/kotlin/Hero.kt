@@ -1,13 +1,23 @@
 /**
+ * Represents the walking state of the hero.
+ * STAND: the hero is standing still
+ * START: the hero is starting to walk
+ * MID: the hero is walking in the middle of the square
+ * END: the hero is ending the walk
+ */
+enum class Walk { STAND, START, MID, END }
+
+/**
  * Represents the hero in arena
  * @property pos the hero position in the grid
  * @property dir the direction the hero is facing
+ * @property walk the walking state of the hero
  */
-data class Hero(val pos: Position, val dir: Direction)
-/*
-fun Hero.toString(): String = "Hero(pos=pos, dir=dir)"
-fun Hero.copy(pos: Position =this.pos, dir: Direction =this.dir) = Hero(pos,dir)
-*/
+data class Hero(
+    val pos: Position,
+    val dir: Direction,
+    val walk: Walk
+)
 
 /**
  * Move the hero after turning to the given direction.
@@ -15,7 +25,8 @@ fun Hero.copy(pos: Position =this.pos, dir: Direction =this.dir) = Hero(pos,dir)
  * @param to the direction to move
  * @return the new hero after the move
  */
-fun Hero.move(to: Direction): Hero = face(to).moveFaced() //moveFaced(face(this,to))
+fun Hero.move(to: Direction): Hero =
+    face(to).copy(walk=Walk.START)
 
 /**
  * Move the hero in the direction it is facing.
@@ -34,6 +45,16 @@ fun Hero.moveFaced(): Hero {
  * @return the new hero after the turn
  */
 fun Hero.face(to: Direction) = copy(dir= to)
+
+/**
+ * Moves the hero one step in the animation walk
+ */
+fun Hero.step(): Hero = when(walk) {
+    Walk.STAND -> this
+    Walk.START -> copy(walk = Walk.MID)
+    Walk.MID -> copy(walk = Walk.END)
+    Walk.END -> copy(walk = Walk.STAND, pos= pos+dir)
+}
 
 
 
