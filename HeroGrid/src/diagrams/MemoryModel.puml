@@ -1,0 +1,14 @@
+@startyaml
+hero:
+    pos:
+        row: 2
+        col: 4
+    dir:
+        LEFT:
+            ordinal:1
+            dRow:0
+            dCol:-1
+    walk:
+        STAND:
+            ordinal:0
+@endyaml

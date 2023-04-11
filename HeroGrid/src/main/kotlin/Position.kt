@@ -1,7 +1,9 @@
 /**
  * The direction of a move or turn.
  */
-enum class Direction { DOWN, LEFT, RIGHT, UP }
+enum class Direction(val dRow: Int, val dCol: Int) {
+     DOWN(+1,0), LEFT(0,-1), RIGHT(0,+1), UP(-1,0)
+}
 
 /**
  * Represents a position in the grid.

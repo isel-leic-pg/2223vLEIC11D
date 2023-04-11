@@ -26,7 +26,13 @@ data class Hero(
  * @return the new hero after the move
  */
 fun Hero.move(to: Direction): Hero =
-    face(to).copy(walk=Walk.START)
+    if (walk==Walk.STAND)
+        if ((pos + to).isValid())
+            face(to).copy(walk = Walk.START)
+        else
+            face(to)
+    else
+        copy(walk=Walk.END).step().move(to)
 
 /**
  * Move the hero in the direction it is facing.
@@ -44,10 +50,13 @@ fun Hero.moveFaced(): Hero {
  * @param to the direction to turn
  * @return the new hero after the turn
  */
-fun Hero.face(to: Direction) = copy(dir= to)
+fun Hero.face(to: Direction) =
+    if (dir==to) this else copy(dir= to)
 
 /**
  * Moves the hero one step in the animation walk
+ * @receiver the hero before the step
+ * @return the new hero after the step
  */
 fun Hero.step(): Hero = when(walk) {
     Walk.STAND -> this
@@ -56,6 +65,15 @@ fun Hero.step(): Hero = when(walk) {
     Walk.END -> copy(walk = Walk.STAND, pos= pos+dir)
 }
 
+/**
+ * Creates a hero in the center of the grid facing down.
+ * @return the hero created
+ */
+fun createHero() = Hero(
+    Position(GRID_ROWS / 2, GRID_COLS / 2),
+    Direction.DOWN,
+    Walk.STAND
+)
 
 
 

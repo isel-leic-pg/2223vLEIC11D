@@ -1,0 +1,9 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+[Main] ..> [View]
+[Main] ..> [Hero]
+[Hero] ..> [Position]
+[View] ..> [Position]
+
+@enduml
