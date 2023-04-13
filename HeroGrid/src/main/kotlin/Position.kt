@@ -1,9 +1,20 @@
+import Direction.*
+import kotlin.math.abs
+
 /**
  * The direction of a move or turn.
  */
-enum class Direction(val dRow: Int, val dCol: Int) {
-     DOWN(+1,0), LEFT(0,-1), RIGHT(0,+1), UP(-1,0)
+enum class Direction(val dRow: Int = 0, val dCol: Int = 0) {
+     DOWN(dRow = +1), LEFT(dCol = -1), RIGHT(dCol = +1), UP(dRow = -1)
 }
+
+/*
+data class Direction(val ordinal: Int, val dRow: Int = 0, val dCol: Int = 0)
+val DOWN = Direction(0,dRow = +1)
+val LEFT = Direction(1,dCol = -1)
+val RIGHT = Direction(2,dCol = +1)
+val UP = Direction(3,dRow = -1)
+*/
 
 /**
  * Represents a position in the grid.
@@ -28,8 +39,23 @@ fun Position.isValid(): Boolean =
  * @return the new position after the addition
  */
 operator fun Position.plus(dir: Direction) = when(dir) {
-    Direction.DOWN -> Position(row + 1, col)
-    Direction.UP -> Position(row - 1, col)
-    Direction.LEFT -> Position(row, col - 1)
-    Direction.RIGHT -> Position(row, col + 1)
+    DOWN -> Position(row + 1, col)
+    UP -> Position(row - 1, col)
+    LEFT -> Position(row, col - 1)
+    /*else*/ RIGHT -> Position(row, col + 1)
+}
+
+/**
+ * Direction from one position to other position.
+ * @receiver the position from which the direction is computed
+ * @param to the position to which the direction is computed
+ * @return the direction from this position to the given position
+ */
+fun Position.dirTo(to: Position): Direction {
+    val dRow = to.row - row
+    val dCol = to.col - col
+    return if (abs(dRow) > abs(dCol))
+        if (dRow > 0) DOWN else UP
+    else
+        if (dCol > 0) RIGHT else LEFT
 }

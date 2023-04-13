@@ -1,4 +1,5 @@
 import pt.isel.canvas.*
+import Direction.*
 
 /**
  * Dimensions of the grid
@@ -12,18 +13,18 @@ const val GRID_COLS = 16    // Number of columns in the grid
  */
 fun main() {
     onStart {
-        val arena = Canvas(GRID_SIZE*GRID_COLS, GRID_SIZE*GRID_ROWS, YELLOW)
-        var hero = createHero()
+        val arena = Canvas(GRID_SIZE*GRID_COLS+1, GRID_SIZE*GRID_ROWS+1, YELLOW)
+        var game = createGame()
         arena.onKeyPressed { key ->
             val dir = keyToDir(key.code)
             if (dir!=null) {
-                hero = hero.move(dir)
-                arena.drawGame(hero)
+                game = game.move(dir)
+                arena.drawGame(game)
             }
         }
         arena.onTimeProgress(250) {
-            hero = hero.step()
-            arena.drawGame(hero)
+            game = game.step()
+            arena.drawGame(game)
         }
     }
     onFinish {  }
@@ -35,10 +36,10 @@ fun main() {
  * @return the direction corresponding to the key code or null if the key code is not a direction
  */
 private fun keyToDir(keyCode: Int): Direction? = when (keyCode) {
-    DOWN_CODE -> Direction.DOWN
-    LEFT_CODE -> Direction.LEFT
-    RIGHT_CODE -> Direction.RIGHT
-    UP_CODE -> Direction.UP
+    DOWN_CODE -> DOWN
+    LEFT_CODE -> LEFT
+    RIGHT_CODE -> RIGHT
+    UP_CODE -> UP
     else -> null
 }
 
