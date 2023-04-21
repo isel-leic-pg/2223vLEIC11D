@@ -2,8 +2,10 @@
 'https://plantuml.com/component-diagram
 
 [Main] ..> [View]
-[Main] ..> [Hero]
-[Hero] ..> [Position]
+[Main] ..> [Game]
+[Game] ..> [Actor]
+[Actor] ..> [Position]
+[Actor] <. [View]
 [View] ..> [Position]
 
 @enduml

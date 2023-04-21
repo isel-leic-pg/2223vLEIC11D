@@ -10,7 +10,7 @@ fun Canvas.drawGame(game: Game) {
     erase()
     drawGrid()
     drawHero(game.hero)
-    drawRobot(game.robot)
+    game.robots.forEach { drawRobot(it) }
 }
 
 /**

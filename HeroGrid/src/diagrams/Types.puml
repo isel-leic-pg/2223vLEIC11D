@@ -3,9 +3,11 @@
 
 hide empty members
 
-Hero *- Position : pos
-Hero *-- Direction : dir
-Hero *-- Walk : walk
+Game *- Actor: hero
+Game *- Actor: robot
+Actor *- Position : pos
+Actor *-- Direction : dir
+Actor *-- Walk : walk
 
 class Position{
   row: Int

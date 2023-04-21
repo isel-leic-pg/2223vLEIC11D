@@ -83,6 +83,12 @@ fun createRobot() = Actor(
     Position( (0 until GRID_ROWS).random(), (0 until GRID_COLS).random() ),
 )
 
+/**
+ *
+ */
+fun Actor.finalPosition() =
+    if (walk == Walk.STAND) pos else pos+dir
+
 
 
 
