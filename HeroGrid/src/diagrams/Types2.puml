@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide empty members
+
+Game *-- Actor: hero
+Game *-- "*" Actor: robots
+Actor *- Position : pos
+Actor *-- Direction : dir
+Actor *-- Walk : walk
+
+class Position{
+  row: Int
+  col: Int
+}
+
+enum Direction{
+  DOWN
+  LEFT
+  RIGHT
+  UP
+  --
+  dRow: Int
+  dCol: Int
+}
+
+enum Walk {
+    STAND
+    START
+    MID
+    END
+}
+@enduml

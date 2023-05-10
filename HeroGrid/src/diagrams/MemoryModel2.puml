@@ -1,0 +1,26 @@
+@startjson
+
+{
+ "game\\n:<color:green> Game": {
+    "hero\\n:<color:green> Actor": {
+      "pos": { "row": 5, "col": 8 },
+      "dir": [ "DOWN" ],
+      "walk": [ "STAND" ]
+    },
+    "robots\\n:<color:green> List<Actor>" : [
+        {
+          "pos": { "row": 6, "col": 5 },
+          "dir": [ "LEFT" ],
+          "walk": [ "STAND" ]
+        },
+        {
+          "pos": { "row": 2, "col": 4 },
+          "dir": [ "DOWN" ],
+          "walk": [ "STAND" ]
+        },
+        "..."
+    ]
+ }
+}
+
+@endjson
