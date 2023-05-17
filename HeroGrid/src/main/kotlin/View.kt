@@ -11,6 +11,20 @@ fun Canvas.drawGame(game: Game) {
     drawGrid()
     drawHero(game.hero)
     game.robots.forEach { drawRobot(it) }
+    game.garbage.forEach { drawJunk(it) }
+}
+
+/**
+ * Draws one heap of garbage in the canvas.
+ * @receiver the canvas to draw on
+ * @param pos the position of the garbage
+ */
+fun Canvas.drawJunk(pos: Position) {
+    drawImage(
+        "junk.png",
+        pos.col*GRID_SIZE, pos.row*GRID_SIZE,
+        GRID_SIZE,GRID_SIZE
+    )
 }
 
 /**

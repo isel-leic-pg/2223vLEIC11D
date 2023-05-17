@@ -84,7 +84,7 @@ fun createRobot() = Actor(
 )
 
 /**
- *
+ * Returns the final position of the actor after the walk animation.
  */
 fun Actor.finalPosition() =
     if (walk == Walk.STAND) pos else pos+dir
