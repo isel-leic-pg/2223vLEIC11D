@@ -17,10 +17,11 @@ fun main() {
         var game = createGame()
         arena.onKeyPressed { key ->
             val dir = keyToDir(key.code)
-            if (dir!=null) {
+            if (dir!=null)
                 game = game.move(dir)
-                arena.drawGame(game)
-            }
+            if (key.char=='j')
+                game = game.jump()
+            arena.drawGame(game)
         }
         arena.onTimeProgress(250) {
             game = game.step()

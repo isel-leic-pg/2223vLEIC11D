@@ -8,20 +8,17 @@ enum class Direction(val dRow: Int = 0, val dCol: Int = 0) {
      DOWN(dRow = +1), LEFT(dCol = -1), RIGHT(dCol = +1), UP(dRow = -1)
 }
 
-/*
-data class Direction(val ordinal: Int, val dRow: Int = 0, val dCol: Int = 0)
-val DOWN = Direction(0,dRow = +1)
-val LEFT = Direction(1,dCol = -1)
-val RIGHT = Direction(2,dCol = +1)
-val UP = Direction(3,dRow = -1)
-*/
-
 /**
  * Represents a position in the grid.
  * @property row the row of the position
  * @property col the column of the position
  */
 data class Position(val row: Int, val col: Int)
+
+/**
+ * All positions in the grid
+ */
+val allPositions = List(GRID_ROWS*GRID_COLS) { Position(row=it/GRID_COLS, col=it%GRID_COLS) }
 
 /**
  * Checks if the position is valid in grid.
@@ -59,3 +56,8 @@ fun Position.dirTo(to: Position): Direction {
     else
         if (dCol > 0) RIGHT else LEFT
 }
+
+/**
+ * Returns positions that are repeated in the list.
+ */
+fun List<Position>.duplicates() = filter { it in (this-it) }.distinct()

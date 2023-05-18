@@ -28,7 +28,7 @@ data class Actor(
  * @return the new actor after the move
  */
 fun Actor.move(to: Direction): Actor =
-    if (walk==Walk.STAND)
+    if (stopped())
         if ((pos + to).isValid())
             face(to).copy(walk = Walk.START)
         else
@@ -80,15 +80,21 @@ fun createHero() = Actor(
  * @return the actor created
  */
 fun createRobot() = Actor(
-    Position( (0 until GRID_ROWS).random(), (0 until GRID_COLS).random() ),
+    Position(
+        row = (0 until GRID_ROWS).random(),
+        col = (0 until GRID_COLS).random()
+    )
 )
 
 /**
  * Returns the final position of the actor after the walk animation.
  */
 fun Actor.finalPosition() =
-    if (walk == Walk.STAND) pos else pos+dir
+    if (stopped()) pos else pos+dir
 
+fun Actor.stopped() = walk == Walk.STAND
+
+fun Actor.walking() = walk != Walk.STAND
 
 
 
