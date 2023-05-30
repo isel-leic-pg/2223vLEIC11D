@@ -16,10 +16,10 @@ fun main() {
  * Read all lines from standard input and return them as a list of strings.
  */
 fun readAllLines(): List<String> {
-    var lines = emptyList<String>()
+    val lines = mutableListOf<String>()
     while (true) {
         val line = readlnOrNull() ?: break
-        lines = lines + line
+        lines.add(line)
     }
     return lines
 }
